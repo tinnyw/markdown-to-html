@@ -1,15 +1,12 @@
-# Sample Document
+# Header one
 
-Hello!
+Hello there
 
-This is sample markdown for the [Mailchimp](https://www.mailchimp.com) homework assignment.
-```
+How are you?
+What's going on?
 
-We would expect this to convert to the following HTML:
+## Another Header
 
-```
-<h1>Sample Document</h1>
+This is a paragraph [with an inline link](http://google.com). Neat, eh?
 
-<p>Hello</p>
-
-<p>This is sample markdown for the <a href="https://www.mailchimp.com">Mailchimp</a> homework assignment</p>
+## This is a header [with a link](http://yahoo.com)

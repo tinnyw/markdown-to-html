@@ -28,7 +28,7 @@ public class MarkdownLineParser {
 
         if (markupLine.equals("")) {
             // if empty line then output new line
-            outputHTMLLine = "\n";
+            outputHTMLLine = "";
         } else if (headerGroup != null) { // make a header line
             // if the header size is greater than 6, cap it to 6
             int headerSize = headerGroup.length();
