@@ -48,11 +48,34 @@ public class MarkdownLineParser {
         return outputHTMLLine;
     }
 
+    /**
+     * Private method to take a line of markup and convert each of the markup links to HTML links
+     * @param markupLine
+     * @return
+     */
     private static String convertLinkMarkupToHTML(String markupLine) {
         String markupWithLinkForHTML = markupLine;
+
+        // search for all strings that match the pattern [string](url)
         Matcher patternHeaderSearch = Pattern.compile(LINK_MATCHER_REGEX).matcher(markupLine);
         while (patternHeaderSearch.find()) {
             String markupLinkComponent = patternHeaderSearch.group();
+
+            // first store away the text component of the markup link
+            Matcher linkTextComponentMatcher = Pattern.compile(LINK_TEXT_MATCHER_REGEX).matcher(markupLinkComponent);
+            linkTextComponentMatcher.find();
+            String markupLinkTextComponent = linkTextComponentMatcher.group();
+            markupLinkTextComponent = markupLinkTextComponent.substring(1, markupLinkTextComponent.length() - 1);
+
+            // then store away the URL component of the markup link
+            Matcher linkURLComponentMatcher = Pattern.compile(LINK_URL_MATCHER_REGEX).matcher(markupLinkComponent);
+            linkURLComponentMatcher.find();
+            String markupLinkURLComponent = linkURLComponentMatcher.group();
+            markupLinkURLComponent = markupLinkURLComponent.substring(1, markupLinkURLComponent.length() - 1);
+
+            // now replace markup link components with the HTML with converted link text and URL
+            String HTMLLink = String.format("<a href=\"%s\">%s</a>", markupLinkURLComponent, markupLinkTextComponent);
+            markupWithLinkForHTML = markupWithLinkForHTML.replaceFirst(LINK_MATCHER_REGEX, HTMLLink);
         }
         return markupWithLinkForHTML;
     }
