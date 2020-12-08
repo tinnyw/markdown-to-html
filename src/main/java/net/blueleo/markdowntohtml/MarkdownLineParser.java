@@ -4,8 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MarkdownLineParser {
-    private static final String HEADER_MATCHER_REGEX = "^#{1,6}+";
+    private static final String HEADER_MATCHER_REGEX = "^#+";
 
+    /**
+     * Convert a markup line to an output HTML line
+     *
+     * @param markupLine
+     * @return
+     */
     public static String markupLineToHtmlLine(String markupLine)
     {
         // create output line
@@ -26,13 +32,13 @@ public class MarkdownLineParser {
             String markupLineContent = markupLine.replaceFirst(HEADER_MATCHER_REGEX, "").trim();
             outputHTMLLine = String.format("<h%d>%s</h%d>", headerSize, markupLineContent, headerSize);
         } else { // make a paragraph line
-            outputHTMLLine = "<p>" + markupLine + "</p>";
+            outputHTMLLine = String.format("<p>%s</p>", markupLine);
         }
 
         return outputHTMLLine;
     }
 
-    // match the header substring in a markup
+    // match the header substring in a markup line and return it (e.g. "###" and not the contents past the header)
     private static String findHeaderGroup(String markupLine) {
         // now create the se
         Matcher patternHeaderSearch = Pattern.compile(HEADER_MATCHER_REGEX).matcher(markupLine);
