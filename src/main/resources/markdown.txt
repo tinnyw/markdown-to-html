@@ -1,0 +1,15 @@
+# Sample Document
+
+Hello!
+
+This is sample markdown for the [Mailchimp](https://www.mailchimp.com) homework assignment.
+```
+
+We would expect this to convert to the following HTML:
+
+```
+<h1>Sample Document</h1>
+
+<p>Hello</p>
+
+<p>This is sample markdown for the <a href="https://www.mailchimp.com">Mailchimp</a> homework assignment</p>
