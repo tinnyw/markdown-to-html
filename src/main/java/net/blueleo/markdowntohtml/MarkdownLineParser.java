@@ -1,5 +1,7 @@
 package net.blueleo.markdowntohtml;
 
+import org.springframework.web.util.HtmlUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,6 +23,7 @@ public class MarkdownLineParser {
         String outputHTMLLine = "";
         //go ahead trim the prepended and appended whitespaces in case of glitches
         markupLine = markupLine != null ? markupLine.trim() : "";
+        markupLine = HtmlUtils.htmlEscape(markupLine);//make sure we escape HTML so we don't have an XSS injections
         String headerGroup = findHeaderGroup(markupLine);
 
         if (markupLine.equals("")) {

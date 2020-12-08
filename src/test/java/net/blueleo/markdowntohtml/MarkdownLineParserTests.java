@@ -37,4 +37,20 @@ public class MarkdownLineParserTests {
         String expectedOutputHTML = "<p>Bob Saget 4 President</p>";
         assertThat(MarkdownLineParser.markupLineToHtmlLine(markupHeaderLine)).isEqualTo(expectedOutputHTML);
     }
+
+    @Test
+    // test against XSS injections
+    public void testHTMLEscape() {
+        String fishyMarkupline = "<script>alert('ahhh xss');</script>";
+        String expectedOutputHTML = "<p>&lt;script&gt;alert(&#39;ahhh xss&#39;);&lt;/script&gt;</p>";
+        assertThat(MarkdownLineParser.markupLineToHtmlLine(fishyMarkupline)).isEqualTo(expectedOutputHTML);
+    }
+
+    @Test
+    // test link output is as expected
+    public void testLink() {
+        String markupHeaderLine = "[Best site ever!](https://www.zombo.com/)";
+        String expectedOutputHTML = "<p><a href=\"https://www.zombo.com/\">Best site ever!</a></p>";
+        assertThat(MarkdownLineParser.markupLineToHtmlLine(markupHeaderLine)).isEqualTo(expectedOutputHTML);
+    }
 }
