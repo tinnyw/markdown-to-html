@@ -26,6 +26,8 @@ public class MarkdownToHtmlApplication {
 	private static void convertMarkDownFileToHTML() throws IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream markDownFileStream = classLoader.getResourceAsStream("markdown.txt");
+		// todo: split stream reader upto n number of threads so that we can multithread the parsing and put it back
+		// together at the end
 		InputStreamReader streamReader = new InputStreamReader(markDownFileStream, StandardCharsets.UTF_8);
 		BufferedReader reader = new BufferedReader(streamReader);
 		for (String line; (line = reader.readLine()) != null;) {
