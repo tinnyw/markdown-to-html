@@ -53,4 +53,20 @@ public class MarkdownLineParserTests {
         String expectedOutputHTML = "<p><a href=\"https://www.zombo.com/\">Best site ever!</a></p>";
         assertThat(MarkdownLineParser.markupLineToHtmlLine(markupHeaderLine)).isEqualTo(expectedOutputHTML);
     }
+
+    @Test
+    // test link output is as expected when embedded in text
+    public void testLinkEmbeddedInText() {
+        String markupHeaderLine = "This is a paragraph [with an inline link](http://google.com). Neat, eh?";
+        String expectedOutputHTML = "<p>This is a paragraph <a href=\"http://google.com\">with an inline link</a>. Neat, eh?</p>";
+        assertThat(MarkdownLineParser.markupLineToHtmlLine(markupHeaderLine)).isEqualTo(expectedOutputHTML);
+    }
+
+    @Test
+    // test link output is as expected when embedded in a header
+    public void testLinkEmbeddedInHeader() {
+        String markupHeaderLine = "## This is a header [with a link](http://yahoo.com)";
+        String expectedOutputHTML = "<h2>This is a header <a href=\"http://yahoo.com\">with a link</a></h2>";
+        assertThat(MarkdownLineParser.markupLineToHtmlLine(markupHeaderLine)).isEqualTo(expectedOutputHTML);
+    }
 }
